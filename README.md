@@ -117,7 +117,7 @@ than typed); the number is the exit code.
 | Folder | What changed |
 |---|---|
 | `Versions/Code/V0.01` | First version: lexer, parser, evaluator |
-| `Versions/Code/V0.02(Full+-*\)` | All four operators with precedence, plus a worked example (`Example.txt`) |
+| `Versions/Code/V0.02` | All four operators with precedence, plus a worked example (`Example.txt`) |
 | `Versions/Code/V0.03` | A statement that is only a variable name (`a;`) |
 
 ---
