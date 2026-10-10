@@ -121,6 +121,8 @@ than typed); the number is the exit code.
 | `Versions/Code/V0.03` | A statement that is only a variable name (`a;`) |
 
 ---
+<img width="1917" height="1160" alt="image" src="https://github.com/user-attachments/assets/12a850db-8c69-45af-b31c-1957ee838f9a" />
+
 
 ### Data scraping and AI usage policy
 
