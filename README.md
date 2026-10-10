@@ -7,7 +7,7 @@ Written in Notepad and built from cmd.
 It has a lexer, a recursive parser that builds a real **abstract syntax tree** in a hand-managed memory arena, and a
 tree-walking evaluator that computes the result with the CPU's own integer instructions.
 
-<img width="1816" height="953" alt="image" src="https://github.com/user-attachments/assets/cd6b8d1c-d8d9-49b2-b433-c4de071c0721" />
+<img width="1780" height="1003" alt="image" src="https://github.com/user-attachments/assets/d93c52d8-fa0e-4311-bedc-495c50cd5f00" />
 
 ```
 a=99;a+1;          ->  100
