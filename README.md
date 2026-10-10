@@ -7,6 +7,8 @@ Written in Notepad and built from cmd.
 It has a lexer, a recursive parser that builds a real **abstract syntax tree** in a hand-managed memory arena, and a
 tree-walking evaluator that computes the result with the CPU's own integer instructions.
 
+<img width="1917" height="1160" alt="image" src="https://github.com/user-attachments/assets/12a850db-8c69-45af-b31c-1957ee838f9a" />
+
 ```
 a=99;a+1;          ->  100
 2*3+4*5;           ->  26
@@ -121,7 +123,7 @@ than typed); the number is the exit code.
 | `Versions/Code/V0.03` | A statement that is only a variable name (`a;`) |
 
 ---
-<img width="1917" height="1160" alt="image" src="https://github.com/user-attachments/assets/12a850db-8c69-45af-b31c-1957ee838f9a" />
+
 
 
 ### Data scraping and AI usage policy
