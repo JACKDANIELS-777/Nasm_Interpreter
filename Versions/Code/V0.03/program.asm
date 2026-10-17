@@ -156,7 +156,7 @@ ArenaDump:
 	mov r12, rcx                 ; Keep the current slot pointer in R12
 
 .Loop:
-	; Check if the Node Type (NT) is 0 (End of arena)
+
 	mov rax, qword [r12]
 	cmp rax, 0
 	je .Done
@@ -297,40 +297,39 @@ AddToStatements:
 
 MatchTokenRange:
 
-    ; --- STEP 1: Calculate the Parsed Token Length ---
     mov r8, r15
     sub r8, r14         ; r8 = Token Length (End Ptr - Start Ptr)
 
-    ; --- STEP 2: Route based on Token ID Flag in RCX ---
+
     cmp rcx, 1
     je .check_print
     
-    ; If you add more keywords later (like IF, WHILE, LET):
+   
     ; cmp rcx, 2
     ; je .check_if
     
-    jmp .no_match       ; Unknown flag passed, reject instantly
+    jmp .no_match       
 
 .check_print:
-    ; --- STEP 3: Validate Length First (Fast-Abort Shield) ---
-    cmp r8, PRINT_len   ; Does parsed length match 'print' length (5)?
-    jne .no_match       ; If lengths mismatch, it physically cannot be the word!
+
+    cmp r8, PRINT_len   
+    jne .no_match      
     
-    ; --- STEP 4: Setup Hardware Byte-by-Byte Comparison ---
-    mov rsi, r14        ; RSI = Source pointer (your parsed buffer string)
-    lea rdi, [rel PRINT_str] ; RDI = Destination pointer (the static 'print' string)
-    mov rcx, PRINT_len  ; RCX = Number of bytes to compare for the loop
+ 
+    mov rsi, r14        
+    lea rdi, [rel PRINT_str] 
+    mov rcx, PRINT_len  
     
-    cld                 ; Clear Direction Flag (ensure string reads forward)
-    repe cmpsb          ; REPEAT WHILE EQUAL: Compare bytes at DS:RSI and ES:RDI
-    jne .no_match       ; If any byte flunked, drop out!
+    cld                 
+    repe cmpsb          
+    jne .no_match      
 
 .matched:
-    mov rax, 1          ; Match success! Return 1
+    mov rax, 1          
     ret
 
 .no_match:
-    mov rax, 0          ; Match failed! Return 0
+    mov rax, 0          
     ret	
 Lex:
 	;rcx the data stream	
