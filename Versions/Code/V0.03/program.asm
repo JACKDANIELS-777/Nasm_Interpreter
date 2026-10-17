@@ -161,30 +161,28 @@ ArenaDump:
 	cmp rax, 0
 	je .Done
 
-	; 1. Print the primary node itself
+	
 	mov rcx, r12
 	call PrintNode
 
-	; 2. Guard: Only look inside if this is an operator node (NT: 2)
 	mov rax, qword [r12]
 	cmp rax, 2
-	jne .Next_Slot               ; If it's an integer, skip checking its children
+	jne .Next_Slot               
 
-	; 3. Safely inspect Child 1 (+16)
+	
 	mov rcx, qword [r12 + 16]
-	cmp rcx, 0                   ; Make sure the pointer isn't null
+	cmp rcx, 0                  
 	je .Skip_Child1
-	call PrintNode               ; Print what Child 1 points to
+	call PrintNode               
 .Skip_Child1:
 
-	; 4. Safely inspect Child 2 (+24)
 	mov rcx, qword [r12 + 24]
-	cmp rcx, 0                   ; Make sure the pointer isn't null
+	cmp rcx, 0                   
 	je .Next_Slot
-	call PrintNode               ; Print what Child 2 points to
+	call PrintNode               
 
 .Next_Slot:
-	; Advance exactly 32 bytes to the next physical slot in the arena
+
 	add r12, 32
 	jmp .Loop
 
@@ -193,37 +191,34 @@ ArenaDump:
 	ret
 
 DFS:
-	; 1. Safety check: Did we get passed a null pointer?
+	
 	cmp rcx, 0
 	je .Exit_DFS
 
 	push r15
 	mov r15, rcx                 ; Keep current node address safe in R15
 
-	; 2. Print this node first (Pre-order)
 	mov rcx, r15
 	call PrintNode
 
-	; 3. THE STOP SIGN: What kind of node are we looking at?
-	mov rax, qword [r15]         ; Fetch Node Type (NT)
-	cmp rax, 100                 ; Is it an Integer (Leaf node)?
-	je .Stop_Diving              ; If yes, STOP! Do not look for children.
 
-	; 4. Save our current operator node address onto the stack.
-	;    This ensures that when the left branch finishes diving, 
-	;    we can come right back here to look at the right branch.
+	mov rax, qword [r15]        
+	cmp rax, 100                
+	je .Stop_Diving              
+
+	
 	push r15
 
-	; 5. DIVE LEFT SIDE
-	mov rcx, qword [r15 + 16]    ; Grab whatever is at +16
-	call DFS                     ; Dive down it completely
 
-	; 6. RESTORE PARENT POINTER
-	pop r15                      ; Recover our clean operator pointer
+	mov rcx, qword [r15 + 16]   
+	call DFS                     
 
-	; 7. DIVE RIGHT SIDE
-	mov rcx, qword [r15 + 24]    ; Grab whatever is at +24
-	call DFS                     ; Dive down it completely
+	
+	pop r15                      
+
+	
+	mov rcx, qword [r15 + 24]    
+	call DFS                     
 
 .Stop_Diving:
 	pop r15
