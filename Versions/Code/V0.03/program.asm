@@ -1219,12 +1219,12 @@ WalkTree:
 		jmp .done
 		.div_op_dt:
 
-		; --- THE HOLY DIVISION SANCTUARY ---
-		mov r11, rax           ; r11 = Save our divisor (Right Child) safely out of RAX
-		mov rax, r13           ; rax = Load our dividend (Left Child) into RAX where it belongs!
 		
-		cqo                    ; ⚡ SIGN-EXTEND RAX INTO RDX! Preps the 128-bit RDX:RAX track.
-		idiv r11               ; Divide RDX:RAX by R11! 
+		mov r11, rax          
+		mov rax, r13          
+		
+		cqo                   
+		idiv r11           
 	
 		jmp .done
 	.OP_PM:
